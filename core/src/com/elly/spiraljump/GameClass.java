@@ -7,8 +7,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.elly.spiraljump.tools.assets.MyAssetManager;
 
-
+//Assist
 //TODO сделать UI
+//TODO сделать управление
+//TODO сделать скрины
+
+//Resst
+//TODO сделать препятствия
+//TODO сделать игрока
+//TODO сделать мир и коллайдеры
+//TODO сделать физику
+//TODO сделать философию
 
 public class GameClass extends Game {
 	SpriteBatch batch;
