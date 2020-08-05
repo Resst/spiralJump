@@ -16,7 +16,7 @@ public class Planet {
     private Body body;
     private Level level;
 
-    public static final float RADIUS = 100 * Constants.SCALE;
+    public static final float RADIUS = Constants.WIDTH_IN_CELLS / 2 * 2.6131f;
 
 
 
@@ -38,8 +38,9 @@ public class Planet {
 
     public void update(float dt){
 
-        body.setAngularVelocity(300 * dt);
+        body.setAngularVelocity(5 * dt);
         sprite.setRotation((float) Math.toDegrees(body.getAngle()));
+
 
     }
 
@@ -49,7 +50,7 @@ public class Planet {
         BodyDef bdef = new BodyDef();
         bdef.allowSleep = false;
         bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.position.set(100 * Constants.SCALE, 100 * Constants.SCALE);
+        bdef.position.set(level.getScreen().getCamera().position.x, level.getScreen().getCamera().position.y - Constants.HEIGHT_IN_CELLS / 2 - Constants.WIDTH_IN_CELLS / 2 * 2.4142f);
         body = level.getWorld().createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();

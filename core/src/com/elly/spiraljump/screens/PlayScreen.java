@@ -25,12 +25,13 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(GameClass game){
         this.game = game;
-        level = new Level(this);
 
         renderer = new Box2DDebugRenderer();
 
         camera = new OrthographicCamera();
         viewport = new FitViewport(Constants.WIDTH_IN_CELLS, Constants.HEIGHT_IN_CELLS, camera);
+
+        level = new Level(this);
 
     }
 
