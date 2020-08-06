@@ -5,7 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.elly.spiraljump.gameplay.Planet;
+import com.elly.spiraljump.tools.assets.ObstacleAssets;
 
 public class Triangle extends Obstacle {
 
@@ -17,16 +19,19 @@ public class Triangle extends Obstacle {
     public Fixture defineCollider() {
         FixtureDef fdef = new FixtureDef();
 
-        //TODO переделать шейп на треугольный
-        CircleShape shape = new CircleShape();
-        shape.setPosition(new Vector2(0, Planet.RADIUS + size.y / 2));
-        shape.setRadius(size.y / 2);
+        PolygonShape shape = new PolygonShape();
+        Vector2[] vertices = new Vector2[3];
+        vertices[0] = new Vector2(-size.x / 2, Planet.RADIUS);
+        vertices[1] = new Vector2(0, Planet.RADIUS + size.y);
+        vertices[2] = new Vector2(size.x / 2, Planet.RADIUS);
+        shape.set(vertices);
         fdef.shape = shape;
+
         return body.createFixture(fdef);
     }
 
     @Override
     public void setUpSprite() {
-        sprite = new Sprite(planet.getLevel().getScreen().getGame().getManager().planet.getTexture());
+        sprite = new Sprite(assets.getTexture(ObstacleAssets.SPIKES));
     }
 }

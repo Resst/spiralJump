@@ -9,12 +9,14 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.elly.spiraljump.gameplay.Planet;
 import com.elly.spiraljump.tools.Constants;
+import com.elly.spiraljump.tools.assets.ObstacleAssets;
 
 public abstract class Obstacle {
 
     protected Planet planet;
     protected Body body;
     protected Sprite sprite;
+    protected ObstacleAssets assets;
 
     protected Vector2 size;
 
@@ -24,6 +26,7 @@ public abstract class Obstacle {
 
     public Obstacle(Planet planet){
         this.planet = planet;
+        assets = planet.getLevel().getScreen().getGame().getManager().obstacles;
         size = new Vector2(STANDARD_SIZE, STANDARD_SIZE);
 
         defineObstacle();

@@ -1,8 +1,10 @@
 package com.elly.spiraljump.tools.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import java.util.HashMap;
 
@@ -21,5 +23,11 @@ public abstract class Assets {
     public Animation<TextureRegion> getAnimation(String key){
         return animations.get(key);
     }
+
+    public Texture getTexture(String name){
+        return manager.get(getFolder() + name);
+    }
+
+    public abstract String getFolder();
 
 }

@@ -16,6 +16,7 @@ import com.elly.spiraljump.gameplay.Levels.Level;
 import com.elly.spiraljump.gameplay.Obstacles.Obstacle;
 import com.elly.spiraljump.gameplay.Obstacles.Triangle;
 import com.elly.spiraljump.tools.Constants;
+import com.elly.spiraljump.tools.assets.PlanetAssets;
 
 public class Planet {
 
@@ -86,7 +87,7 @@ public class Planet {
     }
 
     private void defineSprite(){
-        sprite = new Sprite(level.getScreen().getGame().getManager().planet.getTexture());
+        sprite = new Sprite(level.getScreen().getGame().getManager().planet.getTexture(PlanetAssets.PLANET));
         sprite.setSize(RADIUS * 2, RADIUS * 2);
         sprite.setOrigin(RADIUS, RADIUS);
         sprite.setOriginBasedPosition(body.getPosition().x, body.getPosition().y);

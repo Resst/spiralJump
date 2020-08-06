@@ -3,16 +3,16 @@ package com.elly.spiraljump.tools.assets;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
-import java.util.concurrent.ForkJoinPool;
+public class ObstacleAssets extends Assets {
 
-public class PlanetAssets extends Assets {
-
-    public static final String FOLDER = "planets/";
+    private static final String FOLDER = "obstacles/";
 
     @Asset(type = Texture.class, folder = FOLDER)
-    public static final String PLANET = "planet.png";
+    public static final String
+            SPIKES = "spikes.png";
 
-    public PlanetAssets(AssetManager manager) {
+
+    public ObstacleAssets(AssetManager manager) {
         super(manager);
     }
 
@@ -20,5 +20,6 @@ public class PlanetAssets extends Assets {
     public String getFolder() {
         return FOLDER;
     }
+
 
 }

@@ -7,10 +7,12 @@ public class MyAssetManager {
 
     private AssetManager manager;
     public PlanetAssets planet;
+    public ObstacleAssets obstacles;
 
     public MyAssetManager(){
         manager = new AssetManager();
         planet = new PlanetAssets(manager);
+        obstacles = new ObstacleAssets(manager);
 
         manager.finishLoading();
     }
