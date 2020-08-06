@@ -61,14 +61,6 @@ public class PlayScreen implements Screen {
     public void update(float dt){
         level.update(dt);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A))
-            camera.translate(-10, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.D))
-            camera.translate(10, 0);
-        if (Gdx.input.isKeyPressed(Input.Keys.W))
-            camera.translate(0, 10);
-        if (Gdx.input.isKeyPressed(Input.Keys.S))
-            camera.translate(0, -10);
         camera.update();
     }
 
