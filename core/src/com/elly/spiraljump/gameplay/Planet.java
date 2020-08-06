@@ -29,7 +29,7 @@ public class Planet {
 
     private float rotationSpeed = 5;
 
-    public static final float RADIUS = Constants.WIDTH_IN_CELLS / 2 * 2.6131f;
+    private float radius = Constants.WIDTH_IN_CELLS / 2 * 2.6131f;
 
 
 
@@ -62,6 +62,10 @@ public class Planet {
         return body.getPosition();
     }
 
+    public float getRadius(){
+        return radius;
+    }
+
     public float getRotationSpeed() {
         return rotationSpeed;
     }
@@ -73,23 +77,25 @@ public class Planet {
     private void definePlanet(){
         BodyDef bdef = new BodyDef();
         bdef.allowSleep = false;
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.type = BodyDef.BodyType.StaticBody;
         bdef.position.set(level.getScreen().getCamera().position.x - Constants.WIDTH_IN_CELLS / 4,
                 level.getScreen().getCamera().position.y - Constants.HEIGHT_IN_CELLS / 2 - Constants.WIDTH_IN_CELLS / 2 * 2.4142f + Constants.WIDTH_IN_CELLS / 8);
         body = level.getWorld().createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         EdgeShape shape = new EdgeShape();
-        shape.set(-Constants.WIDTH_IN_CELLS / 2, RADIUS, Constants.WIDTH_IN_CELLS / 2, RADIUS);
+        shape.set(-Constants.WIDTH_IN_CELLS / 2, radius, Constants.WIDTH_IN_CELLS / 2, radius);
         fdef.shape = shape;
+        fdef.filter.categoryBits = Constants.GROUND_BIT;
+        fdef.filter.maskBits = Constants.PLAYER_BIT;
         body.createFixture(fdef).setUserData("ground");
 
     }
 
     private void defineSprite(){
         sprite = new Sprite(level.getScreen().getGame().getManager().planet.getTexture(PlanetAssets.PLANET));
-        sprite.setSize(RADIUS * 2, RADIUS * 2);
-        sprite.setOrigin(RADIUS, RADIUS);
+        sprite.setSize(radius * 2, radius * 2);
+        sprite.setOrigin(radius, radius);
         sprite.setOriginBasedPosition(body.getPosition().x, body.getPosition().y);
     }
 

@@ -48,6 +48,7 @@ public abstract class Obstacle {
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.allowSleep = false;
         bdef.angle = ((float) Math.toRadians(startAngle));
+        bdef.gravityScale = 0;
         body = planet.getLevel().getWorld().createBody(bdef);
 
         Fixture fixture = defineCollider();
@@ -62,7 +63,7 @@ public abstract class Obstacle {
         setUpSprite();
 
         sprite.setSize(size.x, size.y);
-        sprite.setOrigin(size.x / 2, -Planet.RADIUS);
+        sprite.setOrigin(size.x / 2, -planet.getRadius());
         sprite.setOriginBasedPosition(planet.getCenter().x, planet.getCenter().y);
         sprite.setRotation(startAngle);
     }

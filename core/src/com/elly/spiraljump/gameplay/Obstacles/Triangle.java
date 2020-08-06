@@ -21,9 +21,9 @@ public class Triangle extends Obstacle {
 
         PolygonShape shape = new PolygonShape();
         Vector2[] vertices = new Vector2[3];
-        vertices[0] = new Vector2(-size.x / 2, Planet.RADIUS);
-        vertices[1] = new Vector2(0, Planet.RADIUS + size.y);
-        vertices[2] = new Vector2(size.x / 2, Planet.RADIUS);
+        vertices[0] = new Vector2(-size.x / 2, planet.getRadius());
+        vertices[1] = new Vector2(0, planet.getRadius() + size.y);
+        vertices[2] = new Vector2(size.x / 2, planet.getRadius());
         shape.set(vertices);
         fdef.shape = shape;
 
