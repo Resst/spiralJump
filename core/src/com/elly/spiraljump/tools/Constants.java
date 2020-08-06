@@ -10,5 +10,10 @@ public class Constants {
             SCREEN_HEIGHT = HEIGHT_IN_CELLS * CELL_SIZE,
             SCALE = 1 / CELL_SIZE;
 
+    public static final short
+            GROUND_BIT = 1,
+            PLAYER_BIT = 2,
+            OBSTACLE_BIT = 4;
+
 
 }

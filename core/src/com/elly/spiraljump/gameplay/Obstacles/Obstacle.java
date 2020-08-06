@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.elly.spiraljump.gameplay.Planet;
 import com.elly.spiraljump.tools.Constants;
 
@@ -45,7 +47,12 @@ public abstract class Obstacle {
         bdef.angle = ((float) Math.toRadians(startAngle));
         body = planet.getLevel().getWorld().createBody(bdef);
 
-        defineCollider();
+        Fixture fixture = defineCollider();
+        fixture.setUserData("obstacle");
+        Filter filter = new Filter();
+        filter.categoryBits = Constants.OBSTACLE_BIT;
+        filter.maskBits = Constants.PLAYER_BIT;
+        fixture.setFilterData(filter);
     }
 
     public void defineSprite(){
@@ -57,7 +64,7 @@ public abstract class Obstacle {
         sprite.setRotation(startAngle);
     }
 
-    public abstract void defineCollider();
+    public abstract Fixture defineCollider();
     public abstract void setUpSprite();
 
 
