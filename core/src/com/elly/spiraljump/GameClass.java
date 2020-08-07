@@ -12,11 +12,6 @@ import com.elly.spiraljump.tools.assets.MyAssetManager;
 //TODO сделать управление
 //TODO сделать скрины
 
-//Resst
-//TODO сделать препятствия
-//TODO сделать игрока
-//TODO сделать физику
-//TODO сделать философию
 
 public class GameClass extends Game {
 	SpriteBatch batch;

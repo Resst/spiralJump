@@ -22,6 +22,8 @@ public class Player {
     private Vector2 size;
     private Sprite sprite;
 
+    public boolean canJump = false;
+
     public Player(Level level){
         this.level = level;
 
@@ -33,7 +35,7 @@ public class Player {
     public void update(float dt){
         sprite.setOriginBasedPosition(body.getPosition().x, body.getPosition().y);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.W))
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && canJump)
             jump();
     }
 
@@ -43,6 +45,7 @@ public class Player {
 
     public void jump(){
         body.applyLinearImpulse(0, 10, body.getPosition().x, body.getPosition().y, true);
+        canJump = false;
     }
 
 
@@ -54,6 +57,7 @@ public class Player {
         bdef.position.set(level.getPlanet().getCenter().x, level.getPlanet().getCenter().y + level.getPlanet().getRadius() + size.y / 2);
         bdef.gravityScale = 5;
         body = level.getPlanet().getLevel().getWorld().createBody(bdef);
+        body.setUserData(this);
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();

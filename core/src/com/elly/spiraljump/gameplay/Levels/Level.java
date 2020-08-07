@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.elly.spiraljump.gameplay.Player;
 import com.elly.spiraljump.screens.PlayScreen;
 import com.elly.spiraljump.gameplay.Planet;
+import com.elly.spiraljump.tools.WorldContactListener;
 
 public class Level {
 
@@ -18,6 +19,7 @@ public class Level {
     public Level(PlayScreen screen){
         this.screen = screen;
         world = new World(new Vector2(0, -10), false);
+        world.setContactListener(new WorldContactListener());
         planet = new Planet(this);
         player = new Player(this);
 

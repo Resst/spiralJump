@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.elly.spiraljump.gameplay.Planet;
+import com.elly.spiraljump.gameplay.Player;
 import com.elly.spiraljump.tools.Constants;
 import com.elly.spiraljump.tools.assets.ObstacleAssets;
 
@@ -42,6 +43,10 @@ public abstract class Obstacle {
         sprite.rotate(planet.getRotationSpeed() * dt);
     }
 
+    public void contactWithPlayer(Player player){
+        //TODO прописать взаимодействие с игроком
+    }
+
     public void defineObstacle(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(planet.getCenter());
@@ -50,6 +55,7 @@ public abstract class Obstacle {
         bdef.angle = ((float) Math.toRadians(startAngle));
         bdef.gravityScale = 0;
         body = planet.getLevel().getWorld().createBody(bdef);
+        body.setUserData(this);
 
         Fixture fixture = defineCollider();
         fixture.setUserData("obstacle");
@@ -69,6 +75,7 @@ public abstract class Obstacle {
     }
 
     public abstract Fixture defineCollider();
+
     public abstract void setUpSprite();
 
 
