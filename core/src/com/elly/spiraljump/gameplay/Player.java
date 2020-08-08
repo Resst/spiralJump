@@ -23,39 +23,73 @@ public class Player {
     private Sprite sprite;
 
     public boolean canJump = false;
+    private boolean setToDestroy = false;
+    private boolean destroyed = false;
 
-    public Player(Level level){
+    private float jumpSpeed = 10;
+    private boolean prevPressed;
+    private float jumpTime = 0;
+
+    public Player(Level level) {
         this.level = level;
 
-        size = new Vector2(1, 1);
+        size = new Vector2(.7f, .7f);
         definePlayer();
         defineSprite();
     }
 
-    public void update(float dt){
-        sprite.setOriginBasedPosition(body.getPosition().x, body.getPosition().y);
+    public void update(float dt) {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && canJump)
-            jump();
+        if (!destroyed && setToDestroy)
+            destroy();
+
+        if (!destroyed) {
+            sprite.setOriginBasedPosition(body.getPosition().x, body.getPosition().y);
+
+            jump(dt);
+        }
     }
 
-    public void draw(SpriteBatch batch){
-        sprite.draw(batch);
+    public void draw(SpriteBatch batch) {
+        if (!destroyed)
+            sprite.draw(batch);
     }
 
-    public void jump(){
-        body.applyLinearImpulse(0, 10, body.getPosition().x, body.getPosition().y, true);
-        canJump = false;
+    public void jump(float dt) {
+        if (canJump && Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            prevPressed = true;
+            body.applyLinearImpulse(0, 7, body.getPosition().x, body.getPosition().y, true);
+            canJump = false;
+            jumpTime += dt;
+        } else if (prevPressed && Gdx.input.isKeyPressed(Input.Keys.W)) {
+            jumpTime += dt;
+            body.applyForceToCenter(new Vector2(0, 17 - jumpTime), true);
+        } else {
+            prevPressed = false;
+            jumpTime = 0;
+        }
     }
 
+    public void ground() {
+        canJump = true;
+        prevPressed = false;
+    }
 
+    public void die() {
+        setToDestroy = true;
+    }
 
-    public void definePlayer(){
+    public void destroy() {
+        level.getWorld().destroyBody(body);
+        destroyed = true;
+    }
+
+    public void definePlayer() {
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.allowSleep = false;
         bdef.position.set(level.getPlanet().getCenter().x, level.getPlanet().getCenter().y + level.getPlanet().getRadius() + size.y / 2);
-        bdef.gravityScale = 5;
+        bdef.gravityScale = 3;
         body = level.getPlanet().getLevel().getWorld().createBody(bdef);
         body.setUserData(this);
 
@@ -68,14 +102,12 @@ public class Player {
         body.createFixture(fdef);
     }
 
-    public void defineSprite(){
+    public void defineSprite() {
         sprite = new Sprite(level.getPlanet().getLevel().getScreen().getGame().getManager().planet.getTexture(PlanetAssets.PLANET));
 
         sprite.setSize(size.x, size.y);
         sprite.setOrigin(size.x / 2, size.y / 2);
     }
-
-
 
 
 }

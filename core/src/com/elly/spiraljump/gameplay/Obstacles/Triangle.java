@@ -32,6 +32,6 @@ public class Triangle extends Obstacle {
 
     @Override
     public void setUpSprite() {
-        sprite = new Sprite(assets.getTexture(ObstacleAssets.SPIKES));
+        sprite.setRegion(assets.getTexture(ObstacleAssets.SPIKES));
     }
 }

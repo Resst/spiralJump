@@ -21,7 +21,9 @@ public abstract class Obstacle {
 
     protected Vector2 size;
 
-    private final float STANDARD_SIZE = 1;
+    protected final float STANDARD_SIZE = 1 / 2f;
+    //the same as meters above ground
+    protected float yh = 0;
 
     private final float startAngle = -90;
 
@@ -29,9 +31,6 @@ public abstract class Obstacle {
         this.planet = planet;
         assets = planet.getLevel().getScreen().getGame().getManager().obstacles;
         size = new Vector2(STANDARD_SIZE, STANDARD_SIZE);
-
-        defineObstacle();
-        defineSprite();
     }
 
     public void draw(SpriteBatch batch){
@@ -40,11 +39,17 @@ public abstract class Obstacle {
 
     public void update(float dt){
         body.setAngularVelocity(((float) Math.toRadians(planet.getRotationSpeed())));
-        sprite.rotate(planet.getRotationSpeed() * dt);
+        sprite.setRotation(((float) Math.toDegrees(body.getAngle())));
     }
 
     public void contactWithPlayer(Player player){
         //TODO прописать взаимодействие с игроком
+        player.die();
+    }
+
+    public void build(){
+        defineObstacle();
+        defineSprite();
     }
 
     public void defineObstacle(){
@@ -66,17 +71,35 @@ public abstract class Obstacle {
     }
 
     public void defineSprite(){
+        sprite = new Sprite();
+
         setUpSprite();
 
         sprite.setSize(size.x, size.y);
         sprite.setOrigin(size.x / 2, -planet.getRadius());
         sprite.setOriginBasedPosition(planet.getCenter().x, planet.getCenter().y);
+
         sprite.setRotation(startAngle);
     }
 
     public abstract Fixture defineCollider();
 
     public abstract void setUpSprite();
+
+    public Obstacle setYh(float yh) {
+        this.yh = yh;
+        return this;
+    }
+
+    public Obstacle setSize(Vector2 size){
+        this.size.set(size);
+        return this;
+    }
+
+    public Obstacle setSize(float width, float height){
+        this.size.set(width, height);
+        return this;
+    }
 
 
 }

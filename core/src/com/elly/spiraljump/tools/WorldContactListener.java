@@ -41,8 +41,8 @@ public class WorldContactListener implements ContactListener {
 
     private void contactWithPlayer(Player player, Fixture fixture, boolean begin){
         short category = fixture.getFilterData().categoryBits;
-        if (category == Constants.GROUND_BIT)
-            player.canJump = begin;
+        if (category == Constants.GROUND_BIT && begin)
+            player.ground();
         else if (category == Constants.OBSTACLE_BIT)
             ((Obstacle) fixture.getBody().getUserData()).contactWithPlayer(player);
     }

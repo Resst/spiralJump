@@ -31,9 +31,9 @@ public class Level {
     }
 
     public void update(float dt){
+        world.step(dt,5,5);
         planet.update(dt);
         player.update(dt);
-        world.step(dt,5,5);
     }
 
     public PlayScreen getScreen(){

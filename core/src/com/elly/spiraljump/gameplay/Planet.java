@@ -7,10 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.elly.spiraljump.gameplay.Levels.Level;
 import com.elly.spiraljump.gameplay.Obstacles.Obstacle;
@@ -27,7 +25,7 @@ public class Planet {
 
     Array<Obstacle> obstacles = new Array<>();
 
-    private float rotationSpeed = 5;
+    private float rotationSpeed = 20;
 
     private float radius = Constants.WIDTH_IN_CELLS / 2 * 2.6131f;
 
@@ -50,11 +48,12 @@ public class Planet {
     public void update(float dt){
         sprite.rotate(rotationSpeed * dt);
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+            obstacles.add(new Triangle(this));
+
         for (Obstacle o : obstacles)
             o.update(dt);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-            obstacles.add(new Triangle(this));
 
     }
 
